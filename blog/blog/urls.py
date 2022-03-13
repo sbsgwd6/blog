@@ -17,18 +17,24 @@ from django.contrib import admin
 from django.urls import path
 
 #导入系统logging
-import  logging
-#创建获取日志器
-logger = logging.getLogger('django')
+# import  logging
+# #创建获取日志器
+# logger = logging.getLogger('django')
+#
+# from django.http import  HttpResponse
+# def log(request):
+#     #使用日志器记录信息
+#     logger.info("info")
+#     return HttpResponse("test")
 
-from django.http import  HttpResponse
-def log(request):
-    #使用日志器记录信息
-    logger.info("info")
-    return HttpResponse("test")
-
-
+from django.contrib import admin
+from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',log),
+    # include 参数1要设置为元组（urlconf_module, app_name）
+    # namespace 设置命名空间
+    path('', include(('users.urls', 'users'), namespace='users')),
+    # path('',log),
+
+    path('', include(('home.urls','home'),namespace='home')),
 ]
